@@ -31,7 +31,6 @@ const umdConfig = {
       name: 'MyLibrary',
       type: 'umd',
     },
-    clean: true,
   },
 };
 
@@ -39,14 +38,14 @@ const umdConfig = {
 const esmConfig = {
   ...commonConfig,
   mode: 'production',
+  optimization: {minimize: false, minimizer: []},
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.esm.js',
+    filename: 'index.webpack.esm.js',
     library: {
       type: 'module',
     },
     module: true,
-    clean: false, // 防止覆盖 UMD 文件
   },
   experiments: {
     outputModule: true,
