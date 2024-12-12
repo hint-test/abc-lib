@@ -1,32 +1,56 @@
 const path = require('path');
 
-module.exports = {
-  mode: 'production', // 使用生产模式进行优化
-  entry: './src/index.js', // 组件库的入口文件
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    library: {
-      name: 'MyLibrary', // 组件库的全局变量名
-      type: 'umd',       // 兼容多种模块系统
-    },
-    clean: true,          // 构建前清理输出目录
-  },
+const commonConfig = {
+  entry: './src/index.js',
   externals: {
-    react: 'react',        // 将 React 和 ReactDOM 设为外部依赖
+    react: 'react',
     'react-dom': 'react-dom',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx|ts|tsx)$/, // 匹配 JavaScript/TypeScript 文件
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'], // 支持的文件扩展名
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
 };
 
+// UMD 配置
+const umdConfig = {
+  ...commonConfig,
+  mode: 'production',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.js',
+    library: {
+      name: 'MyLibrary',
+      type: 'umd',
+    },
+    clean: true,
+  },
+};
+
+// ESM 配置
+const esmConfig = {
+  ...commonConfig,
+  mode: 'production',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'index.esm.js',
+    library: {
+      type: 'module',
+    },
+    module: true,
+    clean: false, // 防止覆盖 UMD 文件
+  },
+  experiments: {
+    outputModule: true,
+  },
+};
+
+module.exports = [umdConfig, esmConfig];
