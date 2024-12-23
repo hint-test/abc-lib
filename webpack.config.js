@@ -20,20 +20,6 @@ const commonConfig = {
   },
 };
 
-// UMD 配置
-const umdConfig = {
-  ...commonConfig,
-  mode: 'production',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
-    library: {
-      name: 'MyLibrary',
-      type: 'umd',
-    },
-  },
-};
-
 // ESM 配置
 const esmConfig = {
   ...commonConfig,
@@ -43,7 +29,8 @@ const esmConfig = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.webpack.esm.js',
     library: {
-      type: 'module',
+      // type: 'module',
+      type: 'modern-module' // https://webpack.js.org/configuration/output/#type-modern-module Added in v5.93.0, Jul 12 2024
     },
     module: true,
   },
@@ -52,4 +39,4 @@ const esmConfig = {
   },
 };
 
-module.exports = [umdConfig, esmConfig];
+module.exports = esmConfig;
