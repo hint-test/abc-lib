@@ -20,14 +20,28 @@ const commonConfig = {
   },
 };
 
-// ESM 配置
+const cjsConfig = {
+    ...commonConfig,
+    mode: 'production',
+    optimization: { minimize: false, minimizer: [] },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index.js',
+        library: {
+            type: 'commonjs',
+        },
+        module: false,
+    },
+};
+
+
 const esmConfig = {
   ...commonConfig,
   mode: 'production',
   optimization: {minimize: false, minimizer: []},
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.webpack.esm.js',
+    filename: 'index.esm.js',
     library: {
       // type: 'module',
       type: 'modern-module' // https://webpack.js.org/configuration/output/#type-modern-module Added in v5.93.0, Jul 12 2024
@@ -39,4 +53,4 @@ const esmConfig = {
   },
 };
 
-module.exports = esmConfig;
+module.exports = [cjsConfig, esmConfig];

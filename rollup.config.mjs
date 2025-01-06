@@ -5,7 +5,7 @@ import babel from '@rollup/plugin-babel';
 export default {
     input: 'src/index.js',
     output: {
-        file: 'dist/index.esm.js',
+        file: 'dist/index.rollup.esm.js',
         format: 'es',
     },
     external: ['react', 'react-dom'],
