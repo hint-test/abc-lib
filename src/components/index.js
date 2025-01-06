@@ -1,3 +1,2 @@
-export { default as Button } from './Button';
-
-export { default as Selector } from './Selector';
+export * from './Button';
+export * from './Selector';

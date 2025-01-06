@@ -1,9 +1,6 @@
-import React from 'react';
+export * from './types';
 
-const Button = ({ label, onClick }) => {
+export const Button = ({ label, onClick }) => {
   console.log('I am a Button AAA');
   return <button onClick={onClick}>{label}</button>;
 };
-
-export default Button;
-
